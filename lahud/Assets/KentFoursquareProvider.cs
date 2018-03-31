@@ -33,16 +33,16 @@ public class KentFoursquareProvider : MonoBehaviour {
 
             else
             {
-                Debug.Log(req.downloadHandler.text);
-                /*
+                //Debug.Log(req.downloadHandler.text);
+                
                 var d = JsonUtility.FromJson<FoursquareAPI.RootObject>(req.downloadHandler.text);
 
                 List<FoursquareAPI.Venue> venues = d.response.venues;
 
                 foreach( FoursquareAPI.Venue v in venues )
                 {
-                    //Debug.Log(v.);
-                }*/
+                    Debug.Log(v.name);
+                }
             }
 
         }
