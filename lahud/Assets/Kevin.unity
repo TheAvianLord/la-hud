@@ -518,8 +518,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5900a3638fba41348ada8922e4f133ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Hypotheses: {fileID: 1870625132}
   m_Recognitions: {fileID: 422806558}
+  FourSquareHandler: {fileID: 1931221531}
 --- !u!82 &1792635459
 AudioSource:
   m_ObjectHideFlags: 0
@@ -687,3 +687,58 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1870625130}
+--- !u!1 &1931221531
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1931221533}
+  - component: {fileID: 1931221532}
+  m_Layer: 0
+  m_Name: FourSquareHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1931221532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1931221531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b41835570f41bac419c2a06859bbc4a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FOURSQUARE_CLIENT_ID: FACG5HNH254GMRL3GRXQM4DIG5BI50IOMRZVIXFJ434ENDME
+  FOURSQUARE_CLIENT_SECRET: B5WH5CRHSXFY1TPS4V1IXWCFVWECUYEVNAWKJXLTPBAHSWUE
+  NEAR_LOCATION: Cerritos,CA
+  version: 20161016
+  VENUE_ID: 
+  location_selected: 0
+  venue_selected: 0
+  VENUE_NUM_CHOICE: 0
+  VALID_VENUE_IDS: []
+  VENUE_PHOTO_URLS:
+  - 
+  - 
+  - 
+  - 
+  - 
+--- !u!4 &1931221533
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1931221531}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.715271, y: 1.757762, z: -0.5153856}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
