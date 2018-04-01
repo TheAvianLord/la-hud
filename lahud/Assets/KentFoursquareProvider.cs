@@ -3,31 +3,51 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KentFoursquareProvider : MonoBehaviour {
-
-    public string FOURSQUARE_CLIENT_ID = "FACG5HNH254GMRL3GRXQM4DIG5BI50IOMRZVIXFJ434ENDME";
-    public string FOURSQUARE_CLIENT_SECRET = "B5WH5CRHSXFY1TPS4V1IXWCFVWECUYEVNAWKJXLTPBAHSWUE";
-    public string NEAR_LOCATION = "Cerritos,CA";
-    public string version = "20161016";
+public class KentFoursquareProvider : MonoBehaviour
+{
+    public string FOURSQUARE_CLIENT_ID;
+    public string FOURSQUARE_CLIENT_SECRET;
+    public string NEAR_LOCATION;
+    public string version;
     public string VENUE_ID;
-    public bool location_selected = false;
-    bool location_lock = true;
-    public bool venue_selected = false;
-    bool venue_lock = true;
+    public bool location_selected;
+    bool location_lock;
+    public bool venue_selected;
+    bool venue_lock;
+    public bool RESET_ALL;
 
-    public int VENUE_NUM_CHOICE = 0;
 
-    public List<string> VALID_VENUE_IDS;
-    public string[] VENUE_PHOTO_URLS = new string[5];
+    public int VENUE_NUM_CHOICE;
+    public string[] VALID_VENUE_IDS;
+    public string[] VENUE_PHOTO_URLS;
+    public string[] SPECIFIC_VENUE_INFO;
 
     // Use this for initialization
-    void Start ()
+    void Start()
     {
-        //StartCoroutine(GetFoursquareVenueData());
-	}
+        RESET_ALL = false;
+        FOURSQUARE_CLIENT_ID = "FACG5HNH254GMRL3GRXQM4DIG5BI50IOMRZVIXFJ434ENDME";
+        FOURSQUARE_CLIENT_SECRET = "B5WH5CRHSXFY1TPS4V1IXWCFVWECUYEVNAWKJXLTPBAHSWUE";
+        NEAR_LOCATION = "Cerritos,CA";
+        version = "20161016";
+        location_selected = false;
+        location_lock = true;
+
+        venue_selected = false;
+        venue_lock = true;
+
+        VENUE_NUM_CHOICE = 0;
+        VALID_VENUE_IDS = new string[5];
+        VENUE_PHOTO_URLS = new string[5];
+        SPECIFIC_VENUE_INFO = new string[6];
+    }
+    
+    //StartCoroutine(GetFoursquareVenueData());
 	
     IEnumerator GetFoursquareVenueData()
     {
+        int idx = 0;
+
         Debug.Log("Starting FoursquareVenueData");
 
         string search_url = "https://api.foursquare.com/v2/venues/search?" + "v=" + version + "&near=" + NEAR_LOCATION + 
@@ -56,7 +76,8 @@ public class KentFoursquareProvider : MonoBehaviour {
                         Debug.Log(c.name);
                     }*/
                     VENUE_ID = v.id;
-                    VALID_VENUE_IDS.Add(VENUE_ID);
+                    VALID_VENUE_IDS[idx] = VENUE_ID;
+                    idx++;
                 }
             }
         }
@@ -125,26 +146,40 @@ public class KentFoursquareProvider : MonoBehaviour {
                 FoursquareSpecificvenueAPI.Venue venue = d.response.venue;
 
                 Debug.Log("This is the venue name: " + venue.name);
+                SPECIFIC_VENUE_INFO[0] = venue.name;
+
                 Debug.Log("This is the phone number, Twitter, Instragram, and Facebook: " + venue.contact.formattedPhone
                             + venue.contact.twitter + venue.contact.instagram + venue.contact.facebookUsername);
+                SPECIFIC_VENUE_INFO[1] = venue.contact.formattedPhone + " " + venue.contact.twitter + " " + venue.contact.instagram
+                                    + " " + venue.contact.facebookUsername;
 
                 Debug.Log("This is the formatted address:");
+                string bigAddress = "";
                 foreach (string str in venue.location.formattedAddress)
+                {
                     Debug.Log(str);
+                    bigAddress += str + " ";
+                }
+                SPECIFIC_VENUE_INFO[2] = bigAddress;
                 
 
                 Debug.Log("This is the venue's address: " + venue.url);
+                SPECIFIC_VENUE_INFO[3] = venue.url;
                 Debug.Log("This is the rating out of 10: " + venue.rating);
+                SPECIFIC_VENUE_INFO[4] = "" + venue.rating;
                 Debug.Log("This is a small description of the venue: " + venue.description);
-
+                SPECIFIC_VENUE_INFO[5] = venue.description;
+                /*
                 foreach (FoursquareSpecificvenueAPI.Timeframes tf in venue.hours.timeframes)
                 {
                     Debug.Log("These are the days the venue is open: " + tf.days);
+                    SPECIFIC_VENUE_INFO[6] = tf.days;
                     foreach (FoursquareSpecificvenueAPI.Open op in tf.open)
                     {
                         Debug.Log("These are the hours the venue is open: " + op.renderedTime);
+                        SPECIFIC_VENUE_INFO[7] = op.renderedTime;
                     }
-                }
+                }*/
             }
         }
     }
@@ -163,8 +198,13 @@ public class KentFoursquareProvider : MonoBehaviour {
         {
             venue_lock = false;
             int venue_index = VENUE_NUM_CHOICE - 1;
-            VENUE_ID = VALID_VENUE_IDS[0];
+            VENUE_ID = VALID_VENUE_IDS[venue_index];
             StartCoroutine(GetFoursquareSpecificvenueData());
         }
+        if (RESET_ALL)
+        {
+            Start();
+        }
+
 	}
 }
