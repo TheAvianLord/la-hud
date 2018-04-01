@@ -150,7 +150,6 @@ public class KentFoursquareProvider : MonoBehaviour {
     }
 
 
-
     // Update is called once per frame
     void Update ()
     {
