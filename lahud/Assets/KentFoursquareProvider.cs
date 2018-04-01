@@ -13,12 +13,12 @@ public class KentFoursquareProvider : MonoBehaviour
     public bool location_selected;
     bool location_lock;
     public bool venue_selected;
-    bool venue_lock;
     public bool RESET_ALL;
 
 
     public int VENUE_NUM_CHOICE;
     public string[] VALID_VENUE_IDS;
+    public string[] VENUE_VARIETY;
     public string[] VENUE_PHOTO_URLS;
     public string[] SPECIFIC_VENUE_INFO;
 
@@ -34,10 +34,10 @@ public class KentFoursquareProvider : MonoBehaviour
         location_lock = true;
 
         venue_selected = false;
-        venue_lock = true;
 
-        VENUE_NUM_CHOICE = 0;
+        VENUE_NUM_CHOICE = 1;
         VALID_VENUE_IDS = new string[5];
+        VENUE_VARIETY = new string[5];
         VENUE_PHOTO_URLS = new string[5];
         SPECIFIC_VENUE_INFO = new string[6];
     }
@@ -70,11 +70,15 @@ public class KentFoursquareProvider : MonoBehaviour
 
                 foreach( FoursquareAPI.Venue v in venues)
                 {
+                    string astr = "";
                     Debug.Log(v.name + ": ");
-                    /*foreach (FoursquareAPI.Category c in v.categories)
+                    astr += v.name + " ";
+                    foreach (FoursquareAPI.Category c in v.categories)
                     {
                         Debug.Log(c.name);
-                    }*/
+                        astr += c.name + " ";
+                    }
+                    VENUE_VARIETY[idx] = astr;
                     VENUE_ID = v.id;
                     VALID_VENUE_IDS[idx] = VENUE_ID;
                     idx++;
@@ -193,9 +197,9 @@ public class KentFoursquareProvider : MonoBehaviour
             location_lock = false;
             StartCoroutine(GetFoursquareVenueData());
         }
-        if (venue_selected && venue_lock)
+        if (venue_selected)
         {
-            venue_lock = false;
+            venue_selected = false;
             int venue_index = VENUE_NUM_CHOICE - 1;
             VENUE_ID = VALID_VENUE_IDS[venue_index];
             StartCoroutine(GetFoursquareSpecificvenueData());

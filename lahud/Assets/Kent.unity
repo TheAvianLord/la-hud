@@ -294,6 +294,7 @@ MonoBehaviour:
   VENUE_ID: 
   location_selected: 0
   venue_selected: 0
+  RESET_ALL: 0
   VENUE_NUM_CHOICE: 0
   VALID_VENUE_IDS: []
   VENUE_PHOTO_URLS:
@@ -302,6 +303,7 @@ MonoBehaviour:
   - 
   - 
   - 
+  SPECIFIC_VENUE_INFO: []
 --- !u!4 &460141013
 Transform:
   m_ObjectHideFlags: 0
